@@ -1,9 +1,13 @@
 spring:
+  profiles:
+    active: dev
   application:
-    name: platzi-play
+    name: platzi-play-by-hector
+server:
+  servlet:
+    context-path: /platzi-play/api
 langchain4j:
   open-ai:
     chat-model:
-      api-key: demo
       model-name: gpt-4o-mini
 

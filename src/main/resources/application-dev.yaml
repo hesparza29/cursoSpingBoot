@@ -1,0 +1,15 @@
+server:
+  port: 8090
+langchain4j:
+  open-ai:
+    chat-model:
+      api-key: demo
+      log-requests: true
+      log-responses: true
+logging:
+  level:
+    "[dev.langchain4j]": DEBUG
+    "[dev.aij4.openai4j]": DEBUG
+    "[okhttp3]": DEBUG
+    "[okhttp3.logging]": DEBUG
+
