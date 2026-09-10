@@ -32,12 +32,12 @@ public class MovieEntity {
     private String titulo;
     @Column(nullable = false, precision = 3)
     private Integer duracion;
-    @Column(nullable = false, length = 10)
+    @Column(nullable = false, length = 20)
     private String genero;
     @Column(nullable = true, name = "fecha_estreno")
     private LocalDate fechaEstreno;
     @Column(nullable = true, precision = 3, scale = 2)
-    private BigDecimal clasificacion;
+    private BigDecimal calificacion;
     @Column(nullable = false, length = 1)
     private String estado;
     
