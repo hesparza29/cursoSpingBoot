@@ -3,6 +3,8 @@ spring:
     active: dev
   application:
     name: platzi-play-by-hector
+  datasource:
+    driver-class-name: org.postgresql.Driver
 server:
   servlet:
     context-path: /platzi-play/api
