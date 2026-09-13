@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.platzi.platzi_play.domain.dto.MovieDto;
+import com.platzi.platzi_play.domain.dto.SuggestRequestDto;
 import com.platzi.platzi_play.domain.dto.UpdateMovieDto;
 import com.platzi.platzi_play.domain.service.MovieService;
+import com.platzi.platzi_play.domain.service.PlatziPlayAiService;
 
 @RestController 
 @RequestMapping("/movies")
@@ -23,8 +25,13 @@ public class MovieController {
     
     private final MovieService movieService;
 
-    public MovieController(MovieService movieService){
+    private final PlatziPlayAiService aiService;
+
+    public MovieController(MovieService movieService,
+                            PlatziPlayAiService platziPlayAiService
+    ){
         this.movieService = movieService;
+        this.aiService = platziPlayAiService;
     }
     @GetMapping
     public ResponseEntity<List<MovieDto>> getAll() {
@@ -42,6 +49,11 @@ public class MovieController {
         }
     }
 
+    @PostMapping("/suggest")
+    public ResponseEntity<String> generateMoviesSuggestion(@RequestBody SuggestRequestDto suggestRequestDto) {
+        return ResponseEntity.ok(this.aiService.genereteMoviesSuggestion(suggestRequestDto.userPreference()));
+    }
+    
     @PostMapping
     public ResponseEntity<MovieDto> add(@RequestBody MovieDto movieDto) {
         MovieDto response = this.movieService.save(movieDto);
