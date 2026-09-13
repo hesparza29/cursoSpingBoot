@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 
 import com.platzi.platzi_play.domain.dto.MovieDto;
 import com.platzi.platzi_play.domain.dto.UpdateMovieDto;
+import com.platzi.platzi_play.domain.exception.MovieAlreadyExistsException;
+import com.platzi.platzi_play.domain.exception.MovieNoExistsException;
 import com.platzi.platzi_play.domain.repository.MovieRepository;
 import com.platzi.platzi_play.persistence.crud.CrudMovieEntity;
 import com.platzi.platzi_play.persistence.entity.MovieEntity;
@@ -33,12 +35,23 @@ public class MovieEntityRepository implements MovieRepository {
     @Override
     public MovieDto getById(long id) {
         MovieEntity entity = this.crudMovieEntity.findById(id).orElse(null);
+
+        if (entity == null) {
+            throw new MovieNoExistsException(id);
+        }
+
         return this.movieMapper.toDto(entity);
     }
 
     @Override
     public MovieDto save(MovieDto movieDto) {
+        MovieEntity movieEntityValidation = this.crudMovieEntity.findByTitulo(movieDto.title());
+
+        if (movieEntityValidation != null)
+            throw new MovieAlreadyExistsException(movieDto.title());
+
         MovieEntity movieEntity = this.movieMapper.toEntity(movieDto);
+
         return this.movieMapper.toDto(this.crudMovieEntity.save(movieEntity));
     }
 
@@ -47,7 +60,7 @@ public class MovieEntityRepository implements MovieRepository {
         MovieEntity movieEntity = this.crudMovieEntity.findById(id).orElse(null);
 
         if (movieEntity == null)
-            return null;
+            throw new MovieNoExistsException(id);
 
         this.movieMapper.updateEntityFromDto(updateMovieDto, movieEntity);
 
@@ -56,7 +69,13 @@ public class MovieEntityRepository implements MovieRepository {
 
     @Override
     public void delete(long id) {
-        this.crudMovieEntity.deleteById(id);
+        MovieEntity movieEntity = this.crudMovieEntity.findById(id).orElse(null);
+
+        if (movieEntity != null) {
+            this.crudMovieEntity.deleteById(id);
+        } else {
+            throw new MovieNoExistsException(id);
+        }
     }
     
 }

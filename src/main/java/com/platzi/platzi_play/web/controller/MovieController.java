@@ -40,13 +40,7 @@ public class MovieController {
 
     @GetMapping("/{id}")
     public ResponseEntity<MovieDto> getById(@PathVariable long id) {
-        MovieDto movieDto = this.movieService.getById(id);
-        
-        if(movieDto != null) {
-            return ResponseEntity.ok(movieDto);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(this.movieService.getById(id));
     }
 
     @PostMapping("/suggest")
@@ -56,25 +50,12 @@ public class MovieController {
     
     @PostMapping
     public ResponseEntity<MovieDto> add(@RequestBody MovieDto movieDto) {
-        MovieDto response = this.movieService.save(movieDto);
-
-        if (response != null) {
-            return  ResponseEntity.status(HttpStatus.CREATED).body(response);
-        } else {
-            return ResponseEntity.badRequest().build();
-        }
-        
+        return  ResponseEntity.status(HttpStatus.CREATED).body(this.movieService.save(movieDto));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<MovieDto> update(@PathVariable long id, @RequestBody UpdateMovieDto updateMovieDto) {
-        MovieDto movieDto = this.movieService.update(id, updateMovieDto);
-
-        if (movieDto != null) {
-            return ResponseEntity.ok(movieDto);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(this.movieService.update(id, updateMovieDto));
     }
 
     @DeleteMapping("/{id}")
