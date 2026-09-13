@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.platzi.platzi_play.domain.dto.MovieDto;
+import com.platzi.platzi_play.domain.dto.UpdateMovieDto;
 import com.platzi.platzi_play.domain.repository.MovieRepository;
 
 @Service 
@@ -26,6 +27,10 @@ public class MovieService {
 
     public MovieDto save(MovieDto movieDto) {
         return this.movieRepository.save(movieDto);
+    }
+
+    public MovieDto update(long id, UpdateMovieDto updateMovieDto) {
+        return this.movieRepository.update(id, updateMovieDto);
     }
     
 }

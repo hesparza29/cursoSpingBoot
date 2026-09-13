@@ -5,8 +5,10 @@ import java.util.List;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 import com.platzi.platzi_play.domain.dto.MovieDto;
+import com.platzi.platzi_play.domain.dto.UpdateMovieDto;
 import com.platzi.platzi_play.persistence.entity.MovieEntity;
 
 @Mapper(componentModel = "spring", uses = {GenreMapper.class, StateMapper.class})
@@ -25,5 +27,10 @@ public interface MovieMapper {
     @Mapping(source = "genre", target = "genero", qualifiedByName = "genreToGenero")
     @Mapping(source = "state", target = "estado", qualifiedByName = "stateToEstado")
     MovieEntity toEntity(MovieDto movieDto);
+
+    @Mapping(source = "title", target = "titulo")
+    @Mapping(source = "releaseDate", target = "fechaEstreno")
+    @Mapping(source = "rating", target = "calificacion")
+    void updateEntityFromDto(UpdateMovieDto updateMovieDto, @MappingTarget  MovieEntity movieEntity);
     
 }
