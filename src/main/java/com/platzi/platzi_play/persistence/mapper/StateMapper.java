@@ -9,7 +9,7 @@ public class StateMapper {
         return (estado.equalsIgnoreCase("D")) ? Boolean.TRUE : Boolean.FALSE;
     }
 
-    @Named("")
+    @Named("stateToEstado")
     public static String stateToEstado(Boolean state) {
         return (state) ? "D" : "N";
     }

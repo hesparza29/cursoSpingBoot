@@ -18,6 +18,7 @@ public class GenreMapper {
             case "DRAMA" -> Genre.DRAMA;
             case "ACCION" -> Genre.ACTION;
             case "TERROR" -> Genre.HORROR;
+            case "COMEDIA" -> Genre.COMEDY;
             default -> null;
         };
     }
@@ -34,6 +35,7 @@ public class GenreMapper {
             case DRAMA -> "DRAMA";
             case ACTION -> "ACCION";
             case HORROR -> "TERROR";
+            case COMEDY -> "COMEDIA";
             default -> null;
         };
     }

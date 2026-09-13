@@ -5,5 +5,6 @@ public enum Genre {
     SCI_FIC,
     DRAMA,
     ACTION,
-    HORROR
+    HORROR,
+    COMEDY
 }
