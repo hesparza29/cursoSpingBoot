@@ -19,6 +19,8 @@ import com.platzi.platzi_play.domain.dto.UpdateMovieDto;
 import com.platzi.platzi_play.domain.service.MovieService;
 import com.platzi.platzi_play.domain.service.PlatziPlayAiService;
 
+import jakarta.validation.Valid;
+
 @RestController 
 @RequestMapping("/movies")
 public class MovieController {
@@ -54,7 +56,7 @@ public class MovieController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MovieDto> update(@PathVariable long id, @RequestBody UpdateMovieDto updateMovieDto) {
+    public ResponseEntity<MovieDto> update(@PathVariable long id, @RequestBody @Valid UpdateMovieDto updateMovieDto) {
         return ResponseEntity.ok(this.movieService.update(id, updateMovieDto));
     }
 
